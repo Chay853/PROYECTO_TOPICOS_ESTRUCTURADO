@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!--Pagina la cual nos mandara a una ventana donde nos podra contactar por whatssap-->
+<div class="d-flex justify-content-center align-items-center mt-5">
+  <div class="card shadow p-4 text-center" style="max-width: 500px; animation: fadeIn 1s ease;">
+    <div class="card-body">
+      <h3 class="card-title mb-4">¿Necesitás ayuda? 💬</h3>
+      <p class="card-text">Contactanos directamente por WhatsApp. ¡Estamos para ayudarte!</p>
+      
+      <a href="https://wa.me/9911052477" target="_blank" class="btn btn-success mt-3">
+        <i class="fab fa-whatsapp"></i> Enviar mensaje
+      </a>
+
+      <p class="mt-4 text-muted">Gracias por confiar en nuestra tienda 💙</p>
+    </div>
+  </div>
+</div>
+
+<!-- Animación fadeIn -->
+<style>
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+{% endblock %}
