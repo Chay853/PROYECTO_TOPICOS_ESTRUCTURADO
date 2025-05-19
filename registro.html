@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+  body {
+    background-image: url('/static/imagen/fondo.jpg'); /* Ruta a tu imagen */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+    font-weight: bold;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+  }
+
+  .registro-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+  }
+
+  .registro-form {
+    background-color: rgba(255, 255, 255, 0.5); /* Fondo semi transparente */
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    backdrop-filter: blur(5px); /* Difumina el fondo detrás */
+  }
+
+  .registro-form h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+
+  .registro-form input {
+    width: 100%;
+    padding: 0.6rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+
+  .registro-form button {
+    width: 100%;
+    padding: 0.6rem;
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .registro-form button:hover {
+    background-color: #0b5ed7;
+  }
+
+  .registro-form p {
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  .registro-form a {
+    color: #062e67;
+    text-decoration: none;
+  }
+
+  .registro-form a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<div class="registro-container">
+  <div class="registro-form">
+    <h2>Crear cuenta</h2>
+    <form method="POST">
+      <input type="text" name="nombre" placeholder="Nombre completo" required>
+      <input type="email" name="correo" placeholder="Correo electrónico" required>
+      <input type="password" name="contraseña" placeholder="Contraseña" required>
+      <button type="submit">Registrarse</button>
+    </form>
+    <p>¿Ya tienes cuenta? <a href="{{ url_for('login') }}">Inicia sesión</a></p>
+    {% if error %}
+      <p style="color:red; text-align:center;">{{ error }}</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
