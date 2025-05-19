@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+<!--Aqui se agrega los productos -->
+
+{% block content %}
+<style>
+  .agregar-producto-card {
+    background-color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    color: rgb(0, 0, 0);
+  }
+
+  .form-control {
+    background-color: rgba(255, 255, 255, 0.7);
+    color: rgb(0, 0, 0);
+    border: 1px solid #ccc;
+    border-radius: 10px;
+  }
+
+  .form-control::placeholder {
+    color: #000000;
+  }
+
+  .form-label {
+    color: #0a0a0a;
+    font-weight: 600;
+  }
+
+  .btn-success {
+    font-weight: bold;
+    border-radius: 10px;
+    transition: 0.3s;
+  }
+
+  .btn-success:hover {
+    background-color: #218838;
+  } 
+
+  h3 {
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
+  }
+
+  .alert-danger {
+    background-color: rgba(255, 0, 0, 0.7);
+    border: none;
+    color: white;
+  }
+</style>
+
+
+<div class="container mt-5 d-flex justify-content-center">
+  <div class="agregar-producto-card p-4 w-100" style="max-width: 600px;">
+    <h3 class="mb-4 text-center">🛒 Agregar Nuevo Producto</h3>
+
+    <form method="POST" action="{{ url_for('agregar') }}" enctype="multipart/form-data">
+      <div class="mb-3">
+        <label class="form-label">Nombre del producto</label>
+        <input class="form-control" type="text" name="nombre_p" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Cantidad</label>
+        <input class="form-control" type="number" name="cantidad_p" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Descripción</label>
+        <textarea class="form-control" name="descripcion" required></textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Precio</label>
+        <input class="form-control" type="number" step="0.01" name="precio_p" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Imagen del producto</label>
+        <input class="form-control" type="file" name="imagen">
+      </div>
+      <div class="d-grid">
+        <button class="btn btn-success">Agregar Producto</button>
+      </div>
+      {% if error %}
+        <div class="alert alert-danger mt-3 text-center">{{ error }}</div>
+      {% endif %}
+    </form>
+  </div>
+</div>
+{% endblock %}
