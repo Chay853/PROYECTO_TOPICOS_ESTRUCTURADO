@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+
+  .gestion-productos-container {
+    background-color: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  .producto-card {
+    background-color: rgba(255, 255, 255, 0.85);
+    border: none;
+    border-radius: 15px;
+    backdrop-filter: blur(6px);
+  }
+
+  .producto-card input,
+  .producto-card textarea {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    border: 1px solid #ccc;
+  }
+
+  .btn {
+    border-radius: 10px;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .btn-success {
+    background-color: #28a745;
+    border: none;
+  }
+
+  .btn-success:hover {
+    background-color: #218838;
+  }
+
+  .btn-danger {
+    background-color: #dc3545;
+    border: none;
+  }
+
+  .btn-danger:hover {
+    background-color: #c82333;
+  }
+
+  .btn-primary {
+    background-color: #007bff;
+    border: none;
+  }
+
+  .btn-primary:hover {
+    background-color: #0069d9;
+  }
+
+  h3 {
+    color: #000000;
+  }
+
+  .form-label {
+    font-weight: bold;
+    color: #0a0a0a;
+  }
+</style>
+
+<div class="container mt-5 gestion-productos-container">
+  <h3 class="mb-4 text-center fw-bold">🛠️ Buscar, Editar o Eliminar Producto</h3>
+
+  {% if mensaje %}
+    <div class="alert alert-info text-center">{{ mensaje }}</div>
+  {% endif %}
+
+  <!-- Formulario de búsqueda -->
+  <form method="POST">
+    <div class="input-group mb-4">
+      <input type="text" class="form-control" name="nombre_busqueda" placeholder="Buscar por nombre..." required>
+      <button class="btn btn-primary" name="buscar">Buscar</button>
+    </div>
+  </form>
+
+  {% if productos %}
+    <h5 class="mb-3 text-secondary">Resultados encontrados:</h5>
+    {% for producto in productos %}
+    <form method="POST" enctype="multipart/form-data" class="card p-4 mb-4 shadow-lg producto-card">
+      <input type="hidden" name="id_p" value="{{ producto.id_p }}">
+
+      <div class="row g-3">
+        <div class="col-md-4 text-center">
+          <img src="{{ url_for('static', filename='uploads/' + producto.imagen) }}" class="img-fluid rounded" style="max-height: 150px; border: 3px solid #ddd;">
+        </div>
+        <div class="col-md-8">
+          <div class="mb-2">
+            <label class="form-label">Nombre</label>
+            <input class="form-control" name="nombre_p" value="{{ producto.nombre_p }}" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Cantidad</label>
+            <input class="form-control" type="number" name="cantidad_p" value="{{ producto.cantidad_p }}" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Descripción</label>
+            <textarea class="form-control" name="descripcion" required>{{ producto.descripcion }}</textarea>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Precio</label>
+            <input class="form-control" type="number" step="0.01" name="precio_p" value="{{ producto.precio_p }}" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Imagen nueva (opcional)</label>
+            <input class="form-control" type="file" name="imagen">
+          </div>
+          <div class="d-flex justify-content-end gap-2 mt-3">
+            <button class="btn btn-success" name="actualizar">Actualizar</button>
+            <button class="btn btn-danger" name="eliminar" onclick="return confirm('¿Seguro que quieres eliminar este producto?')">Eliminar</button>
+          </div>
+        </div>
+      </div>
+    </form>
+    {% endfor %}
+  {% else %}
+    <p class="text-muted text-center">🔍 No hay productos disponibles.</p>
+  {% endif %}
+</div>
+{% endblock %}
