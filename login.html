@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+  body {
+    background-image: url('/static/imagen/fondo.jpg'); /* Ruta a tu imagen */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+    font-weight: bold;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+  }
+
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+  }
+
+  .login-form {
+    background-color: rgba(255, 255, 255, 0.5); /* Fondo blanco semi transparente */
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    backdrop-filter: blur(5px); /* Difumina el fondo detrás */
+  }
+
+  .form-title {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+
+  .login-form a {
+    color: #062e67;
+    text-decoration: none;
+  }
+
+  .login-form a:hover {
+    text-decoration: underline;
+  }
+
+  .modal-body p {
+    margin-bottom: 0.5rem;
+  }
+</style>
+
+<!--Pide los datos para loguearte y si no es asi tendra un boton para hacer su registro-->
+<div class="login-container">
+  <div class="login-form">
+    <h2 class="form-title">Iniciar sesión</h2>
+    <form method="post" action="/login">
+      <div class="mb-3">
+        <label for="email" class="form-label">Correo electrónico</label>
+        <input type="email" class="form-control" id="email" name="correo" placeholder="tu@email.com" required>
+        <div id="emailHelp" class="form-text">Nunca compartiremos tu correo con nadie.</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <input type="password" class="form-control" id="password" name="contraseña" placeholder="••••••••" required>
+      </div>
+
+      <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="rememberMe" name="remember">
+        <label class="form-check-label" for="rememberMe">Recordarme</label>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+    </form>
+    <p class="mt-3 text-center">¿No tienes cuenta? <a href="{{ url_for('registro') }}">Regístrate aquí</a></p>
+    {% if error %}
+      <p class="text-danger text-center">{{ error }}</p>
+    {% endif %}
+  </div>
+</div>
+
+<!-- Botón para mostrar el modal -->
+<div style="position: fixed; bottom: 10px; right: 10px;">
+  <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#adminModal">
+    Ver datos de administrador
+  </button>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="adminModal" tabindex="-1" aria-labelledby="adminModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="adminModalLabel">Datos de inicio de sesión del administrador</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Correo:</strong> may876518@gmail.com</p>
+        <p><strong>Contraseña:</strong> admin123</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
